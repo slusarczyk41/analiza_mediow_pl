@@ -14,11 +14,14 @@ porównanie ma w ogóle sens (nie ma go jeżeli dla neutralnych słów te wektor
 
 ### Struktura internetowych mediów w Polsce:
 
+##### Kraje:
+
 - [DE] Axel Springer SE/Ringier Holding AG > Axel Springer Media AG > Ringier Axel Springer PL: **Newsweek, Onet, Fakt**
 - [PL] Agora SA: **Wyborcza, Gazeta**
 - [PL] Hajdarowicz Grzegorz > KCI SA > Gremi media SA > Presspublica SA: **Rzeczpospolita, Życie Warszawy, Przekrój, Uwarzam Rze**
 - [US] Discovery > TVN Group: **Tvn24**
 
+##### Poglądy:
 
 - [LEWICA] Nie, fakty i mity, Gazeta wyborcza, Newsweek, Przekrój, Przegląd, Polityka
 - [PRAWICA] Uważam rze, Do rzeczy, W sieci, Gazeta polska, Nasz dziennik, Gość niedzielny, Rzeczypospolita
@@ -47,33 +50,50 @@ putin, trump
 
 ### Plan działania:
 1. Dla każdego medium:
+
 - wyszykuję lub znajduję po tagach artykuły na temat zawierający słowo kluczowe.
 - wstępnie obrabiam tekst, znajduję konkretne wystąpienia słów kluczy oraz ich najbliższe otoczenie
 - z uzyskanych danych tworzę wektory znaczeniowe za pomocą word2vec lub glove
+
 Dzięki czemu posiadam wektory dla każdego słowa-klucz unikalne dla każdej gazety internetowej
+
 2. Dodatkowo,
+
 - dla każdego medium stworzę wektory dla najpopularniejszych oraz neutralnych słów
 - oraz porównam je pomiędzy gazetami,
 aby dowiedziec się jak duża jest różnica pomiędzy nimi
 - jeżeli jest ona niewiekla, to fakt korzystania z róznych zbiorów danych nie wpływa na wygląd wektora
-- jeżeli jest ona duża, to sam już fakt korzystania z różnych zbiorów danych treningowych sprawia że są one różne
-(i stąd różnice dla słów kluczowych mogą być sztuczne, niespowodowane różnicami w poglądach)
+- jeżeli jest ona duża, to sam już fakt korzystania z różnych zbiorów danych treningowych sprawia że są one różne (i stąd różnice dla słów kluczowych mogą być sztuczne, niespowodowane różnicami w poglądach)
+
 3. Łącze dane z:
 - http://dsmodels.nlp.ipipan.waw.pl/ (wektory dla najczęstszych wyrazów języka polskiego)
 - http://plwordnet.pwr.wroc.pl//wordnet/download-wordnet?key=1iflsj&file=4.0 (nacechowanie emocjonalne słów)
-- <coś jeszcze z emocjami lub analizą sentymentu>
-Dzięki temu mam przestrzeń, z której wybieram tylko te słowa dla których mam dane dotyczące sentymentu
-4. Do tej przestrzeni dodaję słowa (wektory) wytrenowane na danych pochodzących z gazet, i
+- http://zil.ipipan.waw.pl/SlownikWydzwieku
+
+Dzięki temu mam date, z której wybieram tylko te słowa dla których mam dane dotyczące sentymentu
+
+4. Do tych danych dodaję słowa (wektory) wytrenowane na danych pochodzących z gazet, i
+
 - wykorzystuję PCA aby narysować wykres w dwóch wymiarach i stwierdzić wizualnie czy danemu słowu
 bliżej jest do grona słów o pozytywnym czy negatywnych znaczeniu
 - wykorzystuję K-means ++ lub SVM aby kategoryzować dane słowa mechanicznie
+
 5. Mogę również
+
 - naszykować wzorce, które szukam w tekście, np "duda jest <kilka dodatkowych słów>"  
 - ze wszystkich znalezionych wycinków wybrać słowa opisujące słowa-klucz
 - narysować chmurę wyrazów aby mieć ogólny obraz
 - przeprowadzić typową analizę sentymentu dla wszystkich wyrazów, +1 jeżeli pozytywne -1 jeżeli słowo jest negatywne
 - oraz porównać wyniki pomiędzy gazetami
+
 6. Przeprowadzić bardzo podobną analizę jak wyżej,
+
 - biorąc tylko tutyłu artykułów
 - oraz przeprowadzając analizę sentymentu dla tytułu
+
 7. Na koniec warto porównać wszystkie wykorzystane metody
+
+
+7. Źródła:
+- http://clip.ipipan.waw.pl/LRT
+- http://zil.ipipan.waw.pl/
