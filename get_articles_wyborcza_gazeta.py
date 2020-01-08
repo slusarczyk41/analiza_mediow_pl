@@ -78,6 +78,8 @@ print(len(all_urls))
 # initialize selenium
 opt = Options()
 opt.add_argument("--headless")
+opt.add_argument("--no-sandbox")
+opt.add_argument("--disable-dev-shm-usage")
 driver = Chrome(options = opt)
 # driver = Chrome()
 driver.get("https://wyborcza.pl/0,0.html")
