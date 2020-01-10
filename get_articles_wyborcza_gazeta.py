@@ -113,7 +113,7 @@ for n, article_url in enumerate(all_urls):
     except Exception as e:
         bad_urls.append(article_url)
     # every x pages save to new file good and bad ones
-    if n % 300 == 0:
+    if n % 1000 == 0:
         i += 1
         
         articles_dir = 'data/gazeta/articles/'
@@ -127,8 +127,11 @@ for n, article_url in enumerate(all_urls):
         with open(articles_dir + str(i), 'w') as f:
             writer =  csv.writer(f)
             writer.writerows(wyborcza_content)
+
+        gazeta_content = []
+        wyborcza_content = []
     
-with open(url_dir+'errors', 'w') as f:
+with open('data/wyborcza_gazeta/article_errors', 'w') as f:
     f.write('\n'.join(bad_urls))
     
 driver.close()

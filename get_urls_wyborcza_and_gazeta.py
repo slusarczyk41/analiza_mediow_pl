@@ -12,9 +12,10 @@ def make_dir(desired_dir):
 
 with open('keywords', 'r') as f:
     keywords = f.read().split('\n')
-    
-done = ['duda', 'morawiecki', 'pis', 'platforma', 'kaczy%F1ski', 'kwa%B6niewski',
-        'lewica', 'lgbt', 'prawica', 'rosja', 'stany', 'szyd%B3o', 'unia+europejska']
+   
+with open('done', 'r') as f:
+    done = f.read().split('\n')
+print(done)
     
 i = 0
 for keyword in keywords:
