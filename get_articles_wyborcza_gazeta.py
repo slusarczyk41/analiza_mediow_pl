@@ -101,8 +101,8 @@ sleep(1)
 bad_urls = []
 wyborcza_content = []
 gazeta_content = []
-i = 0
-for n, article_url in enumerate(all_urls):
+i = 23
+for n, article_url in enumerate(all_urls[23:]):
     # getpage
     try:
         driver.get(article_url)
