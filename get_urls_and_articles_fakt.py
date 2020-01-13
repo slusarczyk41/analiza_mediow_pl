@@ -13,10 +13,10 @@ driver = Chrome(options = o)
 # driver = Chrome()
 
 
-done_keywords = listdir('data/fakt/urls')
+#done_keywords = listdir('data/fakt/urls')
 with open('keywords_pl', 'r') as f:
     raw_keywords = f.read().split('\n')
-keywords = [x for x in raw_keywords if x not in done_keywords]
+#keywords = [x for x in raw_keywords if x not in done_keywords]
     
     
 driver.get('https://www.fakt.pl/szukaj?q=duda')
@@ -26,7 +26,7 @@ except:
     pass
 
 
-for keyword in keywords:
+for keyword in raw_keywords:
     print(keyword)
     driver.get('https://www.fakt.pl/szukaj?q='+keyword)
     
@@ -65,40 +65,45 @@ for keyword in keywords:
             if 'onet.pl' in article_url:
                 if len(driver.find_elements_by_xpath('//*[@id="mainPageBody0"]/section/div/article/main/div/div/div/a')) == 1:
                     try:
+                        driver.find_element_by_xpath('//*[@id="mainPageBody0"]/section/div/article/main/div/div/div/a').click()
+                        title = driver.find_element_by_class_name('detailTitle').text.strip()
+                        short = driver.find_element_by_class_name('leadDetail').text.strip()
+                        long = " ".join([x.text for x in driver.find_elements_by_class_name('hyphenate') if len(x.find_elements_by_tag_name('a')) == 0])
+                        desc = "-@@@-".join([x.text for x in driver.find_elements_by_class_name('imgDesc')])
+                        comments = None
+                        
                         if 'onet.pl' in driver.current_url:
-                            driver.find_element_by_xpath('//*[@id="mainPageBody0"]/section/div/article/main/div/div/div/a').click()
-                            title = driver.find_element_by_class_name('detailTitle').text.strip()
-                            short = driver.find_element_by_class_name('leadDetail').text.strip()
-                            long = " ".join([x.text for x in driver.find_elements_by_class_name('hyphenate') if len(x.find_elements_by_tag_name('a')) == 0])
-                            desc = "-@@@-".join([x.text for x in driver.find_elements_by_class_name('imgDesc')])
-                            comments = None
                             onet_content.append([article_url, title, short, long, desc, comments])
                         else:
-                            title = driver.find_element_by_class_name('title').text.strip()
-                            short = driver.find_element_by_class_name('detailTitle').text.strip()
-                            article_body = driver.find_element_by_class_name('articleBody')
-                            long = " ".join([x.text for x in article_body.find_elements_by_class_name('hyphenate') if len(x.text.split(' ')) > 10])
-                            desc = "-@@@-".join([x.text for x in driver.find_elements_by_class_name('imgDesc')])
-                            comments = None
                             fakt_content.append([article_url, title, short, long, desc, comments])
-                    except:
+                    except ValueError as e:
                         error_urls.append(article_url)
+                        print(e)
+                        
                 else:
                     not_handled_urls.append(article_url)
             elif 'fakt.pl' in article_url:
                 try:
+                    try:
+                        driver.find_element_by_xpath('//*[@id="mainPageBody0"]/section/div/article/main/div/div/div/a').click()
+                    except:
+                        pass
                     title = driver.find_element_by_class_name('title').text.strip()
-                    short = driver.find_element_by_class_name('detailTitle').text.strip()
-                    article_body = driver.find_element_by_class_name('articleBody')
+                    short = driver.find_element_by_class_name('leadDetail').text.strip()
+                    article_body = driver.find_element_by_tag_name('article')
                     long = " ".join([x.text for x in article_body.find_elements_by_class_name('hyphenate') if len(x.text.split(' ')) > 10])
                     desc = "-@@@-".join([x.text for x in driver.find_elements_by_class_name('imgDesc')])
                     comments = None
                     fakt_content.append([article_url, title, short, long, desc, comments])
-                except:
+                except Exception as e:
                     error_urls.append(article_url)
+                    print(e)
+                    print(article_url)
             else:
                 not_handled_urls.append(article_url)
-        except:
+        except Exception as e:
+            print(e)
+            print(article_url)
             error_urls.append(article_url)
             
     with open('data/fakt/articles/'+keyword, 'a') as f:

@@ -101,8 +101,9 @@ sleep(1)
 bad_urls = []
 wyborcza_content = []
 gazeta_content = []
-i = 23
-for n, article_url in enumerate(all_urls[23:]):
+i = 29
+error_counter = 0
+for n, article_url in enumerate(all_urls[29000:]):
     # getpage
     try:
         driver.get(article_url)
@@ -111,7 +112,11 @@ for n, article_url in enumerate(all_urls[23:]):
         elif 'wyborcza.pl' in article_url:
             wyborcza_content.append([article_url] + get_data(article_url))
     except Exception as e:
+        error_counter = error_counter + 1
+        print(e)
         bad_urls.append(article_url)
+        if error_counter > 1000:
+            break
     # every x pages save to new file good and bad ones
     if n % 1000 == 0:
         i += 1
