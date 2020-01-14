@@ -1,0 +1,14 @@
+952769
+712056
+Message: no such element: Unable to locate element: {"method":"css selector","selector":"[id="gazeta_article_lead"]"}
+  (Session info: headless chrome=79.0.3945.88)
+
+Message: no such element: Unable to locate element: {"method":"css selector","selector":".article-lead"}
+  (Session info: headless chrome=79.0.3945.88)
+
+Message: no such element: Unable to locate element: {"method":"css selector","selector":".art_content"}
+  (Session info: headless chrome=79.0.3945.88)
+
+Message: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id="article_title"]"}
+  (Session info: headless chrome=79.0.3945.88)
+

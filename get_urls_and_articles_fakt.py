@@ -54,68 +54,88 @@ for keyword in raw_keywords:
     with open('data/fakt/urls/'+keyword, 'r') as f:
         article_urls = list(set(f.read().split('\n')))
     
-    not_handled_urls = []
+    # not_handled_urls = []
     error_urls = []
-    onet_content = []
+    # onet_content = []
     fakt_content = []
+    error_count = 0
     
     for article_url in article_urls:
         try:
             driver.get(article_url)
-            if 'onet.pl' in article_url:
-                if len(driver.find_elements_by_xpath('//*[@id="mainPageBody0"]/section/div/article/main/div/div/div/a')) == 1:
-                    try:
-                        driver.find_element_by_xpath('//*[@id="mainPageBody0"]/section/div/article/main/div/div/div/a').click()
-                        title = driver.find_element_by_class_name('detailTitle').text.strip()
-                        short = driver.find_element_by_class_name('leadDetail').text.strip()
-                        long = " ".join([x.text for x in driver.find_elements_by_class_name('hyphenate') if len(x.find_elements_by_tag_name('a')) == 0])
-                        desc = "-@@@-".join([x.text for x in driver.find_elements_by_class_name('imgDesc')])
-                        comments = None
-                        
-                        if 'onet.pl' in driver.current_url:
-                            onet_content.append([article_url, title, short, long, desc, comments])
-                        else:
-                            fakt_content.append([article_url, title, short, long, desc, comments])
-                    except ValueError as e:
-                        error_urls.append(article_url)
-                        print(e)
-                        
-                else:
-                    not_handled_urls.append(article_url)
-            elif 'fakt.pl' in article_url:
-                try:
-                    try:
-                        driver.find_element_by_xpath('//*[@id="mainPageBody0"]/section/div/article/main/div/div/div/a').click()
-                    except:
-                        pass
-                    title = driver.find_element_by_class_name('title').text.strip()
-                    short = driver.find_element_by_class_name('leadDetail').text.strip()
-                    article_body = driver.find_element_by_tag_name('article')
-                    long = " ".join([x.text for x in article_body.find_elements_by_class_name('hyphenate') if len(x.text.split(' ')) > 10])
-                    desc = "-@@@-".join([x.text for x in driver.find_elements_by_class_name('imgDesc')])
-                    comments = None
-                    fakt_content.append([article_url, title, short, long, desc, comments])
-                except Exception as e:
-                    error_urls.append(article_url)
-                    print(e)
-                    print(article_url)
-            else:
-                not_handled_urls.append(article_url)
+            try:
+                driver.find_element_by_xpath('//*[@id="mainPageBody0"]/section/div/article/main/div/div/div/a').click()
+            except:
+                pass
+            title = driver.find_element_by_class_name('title').text.strip()
+            short = driver.find_element_by_class_name('leadDetail').text.strip()
+            article_body = driver.find_element_by_tag_name('article')
+            long = " ".join([x.text for x in article_body.find_elements_by_class_name('hyphenate') if len(x.text.split(' ')) > 10])
+            desc = "-@@@-".join([x.text for x in driver.find_elements_by_class_name('imgDesc')])
+            comments = None
+            fakt_content.append([article_url, title, short, long, desc, comments])
         except Exception as e:
             print(e)
             print(article_url)
+            print(driver.current_url)
+            error_count += 1
             error_urls.append(article_url)
-            
+        if error_count > 100:
+            break
+        
     with open('data/fakt/articles/'+keyword, 'a') as f:
         writer =  csv.writer(f)
         writer.writerows(fakt_content)
-    with open('data/onet/articles/'+keyword, 'a') as f:
-        writer =  csv.writer(f)
-        writer.writerows(onet_content)
+    # with open('data/onet/articles/'+keyword, 'a') as f:
+    #     writer =  csv.writer(f)
+    #     writer.writerows(onet_content)
         
 with open('data/fakt/error_urls', 'a') as f:
     f.write('\n'.join(error_urls))
-with open('data/fakt/not_handled_urls', 'a') as f:
-    f.write('\n'.join(not_handled_urls))
+# with open('data/fakt/not_handled_urls', 'a') as f:
+#     f.write('\n'.join(not_handled_urls))
     
 driver.close()
+        
+        
+        
+#         try:
+            
+#             if 'onet.pl' in article_url:
+#                 if len(driver.find_elements_by_xpath('//*[@id="mainPageBody0"]/section/div/article/main/div/div/div/a')) == 1:
+#                     try:
+                        
+#                         title = driver.find_element_by_class_name('detailTitle').text.strip()
+#                         short = driver.find_element_by_class_name('leadDetail').text.strip()
+#                         long = " ".join([x.text for x in driver.find_elements_by_class_name('hyphenate') if len(x.find_elements_by_tag_name('a')) == 0])
+#                         desc = "-@@@-".join([x.text for x in driver.find_elements_by_class_name('imgDesc')])
+#                         comments = None
+                        
+#                         if 'onet.pl' in driver.current_url:
+#                             onet_content.append([article_url, title, short, long, desc, comments])
+#                         else:
+#                             fakt_content.append([article_url, title, short, long, desc, comments])
+#                     except ValueError as e:
+#                         error_urls.append(article_url)
+#                         print(e)
+                        
+#                 else:
+#                     not_handled_urls.append(article_url)
+#             elif 'fakt.pl' in article_url:
+#                 try:
+#                     try:
+#                         driver.find_element_by_xpath('//*[@id="mainPageBody0"]/section/div/article/main/div/div/div/a').click()
+#                     except:
+#                         pass
+                    
+#                 except Exception as e:
+#                     error_urls.append(article_url)
+#                     print(e)
+#                     print(article_url)
+#             else:
+#                 not_handled_urls.append(article_url)
+#         except Exception as e:
+#             print(e)
+#             print(article_url)
+#             error_urls.append(article_url)
+

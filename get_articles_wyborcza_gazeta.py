@@ -11,7 +11,7 @@ def make_dir(desired_dir):
     if not exists(desired_dir):
         makedirs(desired_dir)
         
-def get_data(url):
+def get_data(driver, url):
     if 'wyborcza.pl' in url:
         try:
             title = driver.find_element_by_xpath('//*[@id="art-header"]/div[2]/h1').text
@@ -35,8 +35,13 @@ def get_data(url):
                                     title = driver.find_element_by_xpath('/html/body/div[4]/div[1]/div/header/div[2]').text
                                 except:
                                     title = None
-                    
-        lead = driver.find_element_by_class_name('article-lead').text
+        try:
+            lead = driver.find_element_by_class_name('article-lead').text
+        except:
+            try:
+                lead = driver.find_element_by_xpath('//*[@id="pagetype_art"]/div[4]/div[2]/section/article/section').text
+            except:
+                lead = None
         try:
             content = driver.find_element_by_id('artykul').text
         except:
@@ -46,7 +51,13 @@ def get_data(url):
         return [title, lead, content, img_desc, comments]
     elif 'gazeta.pl' in url:
         title = driver.find_element_by_xpath('//*[@id="article_title"]').text
-        lead = driver.find_element_by_id('gazeta_article_lead').text
+        try:
+            lead = driver.find_element_by_id('gazeta_article_lead').text
+        except:
+            try:
+                lead = driver.find_element_by_xpath('//*[@id="gazeta_article_lead"]').text
+            except:
+                lead = None
         try:
             content = driver.find_element_by_id('artykul').text
         except:
@@ -107,10 +118,10 @@ for n, article_url in enumerate(all_urls[29000:]):
     # getpage
     try:
         driver.get(article_url)
-        if 'gazeta.pl' in article_url:
-            gazeta_content.append([article_url] + get_data(article_url))
-        elif 'wyborcza.pl' in article_url:
-            wyborcza_content.append([article_url] + get_data(article_url))
+        if 'gazeta.pl' in driver.current_url:
+            gazeta_content.append([article_url] + get_data(driver.current_url))
+        elif 'wyborcza.pl' in driver.current_url:
+            wyborcza_content.append([article_url] + get_data(driver.current_url))
     except Exception as e:
         error_counter = error_counter + 1
         print(e)
