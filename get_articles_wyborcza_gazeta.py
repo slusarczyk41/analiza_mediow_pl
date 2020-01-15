@@ -112,9 +112,9 @@ sleep(1)
 bad_urls = []
 wyborcza_content = []
 gazeta_content = []
-i = 60
+i = 70
 error_counter = 0
-for n, article_url in enumerate(all_urls[60000:]):
+for n, article_url in enumerate(all_urls[71000:]):
     # getpage
     try:
         driver.get(article_url)
@@ -125,6 +125,8 @@ for n, article_url in enumerate(all_urls[60000:]):
     except Exception as e:
         error_counter = error_counter + 1
         print(e)
+        print(article_url)
+        print('----')
         try:
             driver.close()
         except:
