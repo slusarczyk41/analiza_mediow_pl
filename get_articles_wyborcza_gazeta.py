@@ -11,7 +11,7 @@ def make_dir(desired_dir):
     if not exists(desired_dir):
         makedirs(desired_dir)
         
-def get_data(driver, url):
+def get_data(url):
     if 'wyborcza.pl' in url:
         try:
             title = driver.find_element_by_xpath('//*[@id="art-header"]/div[2]/h1').text
@@ -112,9 +112,9 @@ sleep(1)
 bad_urls = []
 wyborcza_content = []
 gazeta_content = []
-i = 29
+i = 60
 error_counter = 0
-for n, article_url in enumerate(all_urls[29000:]):
+for n, article_url in enumerate(all_urls[60000:]):
     # getpage
     try:
         driver.get(article_url)
@@ -125,8 +125,16 @@ for n, article_url in enumerate(all_urls[29000:]):
     except Exception as e:
         error_counter = error_counter + 1
         print(e)
+        try:
+            driver.close()
+        except:
+            pass
+        try:
+            driver = Chrome(options = opt)
+        except:
+            pass
         bad_urls.append(article_url)
-        if error_counter > 1000:
+        if error_counter > 1200:
             break
     # every x pages save to new file good and bad ones
     if n % 1000 == 0:
