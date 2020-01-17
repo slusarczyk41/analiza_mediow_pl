@@ -38,6 +38,8 @@ for keyword in raw_keywords:
             sleep(1)
             err_count = err_count + 1
             continue
+        else:
+            print(keyword, i)
         sleep(3)
 
         if err_count > 20:
