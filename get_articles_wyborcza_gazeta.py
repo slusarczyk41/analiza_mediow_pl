@@ -128,9 +128,17 @@ for n, article_url in enumerate(all_urls[112000:]):
     try:
         driver.get(article_url)
         if 'gazeta.pl' in driver.current_url:
-            gazeta_content.append([article_url] + get_data(driver.current_url))
+            try:
+                gazeta_content.append([article_url] + get_data(driver.current_url))
+            except:
+                sleep(2)
+                gazeta_content.append([article_url] + get_data(driver.current_url))
         elif 'wyborcza.pl' in driver.current_url:
-            wyborcza_content.append([article_url] + get_data(driver.current_url))
+            try:
+                wyborcza_content.append([article_url] + get_data(driver.current_url))
+            except:
+                sleep(2)
+                wyborcza_content.append([article_url] + get_data(driver.current_url))
     except Exception as e:
         error_counter = error_counter + 1
         print(e)
