@@ -45,7 +45,16 @@ def get_data(url):
         try:
             content = driver.find_element_by_id('artykul').text
         except:
-            content = driver.find_element_by_class_name('art_content').text
+            try:
+                content = driver.find_element_by_class_name('art_content').text
+            except:
+                try:
+                    content = driver.find_element_by_xpath('//*[@id="artykul"]').text
+                except:
+                    try:
+                        content = driver.find_element_by_xpath('//*[@id="pagetype_art"]/main/div[2]/section/div/article/section[2]').text
+                    except:
+                        content = driver.find_element_by_xpath('//*[@id="pagetype_art"]/main/div/section/div[1]/article/section[2]').text
         img_desc =  "-@@@-".join([x.text for x in driver.find_elements_by_class_name('article-image-desc')])
         comments = "-@@@-".join([x.text for x in driver.find_elements_by_class_name('cBody') if x.text != ''])
         return [title, lead, content, img_desc, comments]
