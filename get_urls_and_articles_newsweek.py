@@ -26,8 +26,13 @@ driver.find_element_by_xpath('//*[@id="f_password"]').send_keys('Starehaslo1')
 driver.find_element_by_xpath('//*[@id="loginForm"]/div[2]/ul[2]/li[1]/input').click()
 sleep(2)
 
+
 with open('keywords_pl', 'r') as f:
     keywords = f.read().split('\n')
+
+with open('done_newsweek', 'r') as f:
+    done_keywords = f.read().split('\n')
+keywords = [x for x in keywords if x not in done_keywords]    
 
 for keyword in keywords:
     print(keyword)

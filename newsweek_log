@@ -268,3 +268,27 @@ https://www.newsweek.pl/polska/wybory-parlamentarne-2019-zbigniew-holdys-krytyku
 Message: no such element: Unable to locate element: {"method":"css selector","selector":".detailTitle"}
   (Session info: headless chrome=79.0.3945.117)
 
+ukraina
+100
+---
+https://www.newsweek.pl/swiat/carole-cadwalladr-vs-google-i-facebook-czyli-fakty-i-fejki/l93z258
+Message: no such element: Unable to locate element: {"method":"css selector","selector":".detailTitle"}
+  (Session info: headless chrome=79.0.3945.117)
+
+---
+https://www.newsweek.pl/swiat/impeachment-donalda-trumpa-czy-republikanski-senat-odwola-prezydenta-usa/lcrxee8
+Message: chrome not reachable
+  (Session info: headless chrome=79.0.3945.117)
+
+Traceback (most recent call last):
+  File "get_urls_and_articles_newsweek.py", line 53, in <module>
+    driver.get(url)
+  File "/home/jacek/anaconda3/envs/py36/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py", line 333, in get
+    self.execute(Command.GET, {'url': url})
+  File "/home/jacek/anaconda3/envs/py36/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "/home/jacek/anaconda3/envs/py36/lib/python3.6/site-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: chrome not reachable
+  (Session info: headless chrome=79.0.3945.117)
+
