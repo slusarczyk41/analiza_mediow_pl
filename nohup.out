@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "get_articles_wyborcza_gazeta.py", line 79, in <module>
-    tmp_urls = f.read().split('\n')
-KeyboardInterrupt
