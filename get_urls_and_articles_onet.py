@@ -9,7 +9,8 @@ from time import sleep
 
 o = Options()
 o.add_argument('--headless')
-driver = Chrome(options = o)
+# driver = Chrome(options = o)
+driver = Chrome()
 
 with open('done_onet', 'r') as f:
     done_keywords = f.read().split('\n')
@@ -63,10 +64,10 @@ try:
 except:
     pass
 
-def get_last_url():
-    return driver.find_elements_by_class_name('listItem')[-1]\
-            .find_elements_by_tag_name('a')[-1]\
-            .get_attribute('href')
+# def get_last_url():
+#     return driver.find_elements_by_class_name('listItem')[-1]\
+#             .find_elements_by_tag_name('a')[-1]\
+#             .get_attribute('href')
 
 
 for keyword in keywords:
@@ -74,22 +75,18 @@ for keyword in keywords:
     onet_keyword = onet_keywords[keyword]
     driver.get('https://wiadomosci.onet.pl/'+onet_keyword)
     
-    # get urls
     last_url = ''
-    for i in range(300):
-        if last_url == get_last_url():
-            break
-        else:
-            last_url = get_last_url()
+    for i in range(110):
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        for more_button in driver\
+                            .find_element_by_class_name('pageContent')\
+                            .find_elements_by_class_name('more'):
+            try:
+                more_button.click()
+            except Exception as e:
+                pass
+        sleep(1)
 
-        try:
-            driver\
-                .find_elements_by_class_name('more')[1]\
-                .click()
-            sleep(2)
-        except:
-            pass
-    
     urls = [
         x.find_elements_by_tag_name('a')[-1].get_attribute('href')
         for x in 
@@ -101,6 +98,7 @@ for keyword in keywords:
 
     with open('data/onet/urls/'+keyword, 'r') as f:
         urls = f.read().split('\n')
+    print(len(urls))
     
     error_urls = []
     onet_content = []
@@ -121,11 +119,11 @@ for keyword in keywords:
             ])
             com = None
             onet_content.append([
-                title, short, long, img, com
+                url, title, short, long, img, com
             ])
         except:
             error_urls.append(driver.current_url)
-
+    print(len(onet_content))
     with open('data/onet/articles/'+keyword, 'w') as f:
         writer =  csv.writer(f)
         writer.writerows(onet_content)
