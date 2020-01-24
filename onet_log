@@ -1,18 +1,1 @@
-sąd+najwyższy
-1020
-762
-imigranci
-Traceback (most recent call last):
-  File "get_urls_and_articles_onet.py", line 82, in <module>
-    .find_element_by_class_name('articleDetail')\
-  File "/home/jacek/anaconda3/envs/py36/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py", line 564, in find_element_by_class_name
-    return self.find_element(by=By.CLASS_NAME, value=name)
-  File "/home/jacek/anaconda3/envs/py36/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py", line 978, in find_element
-    'value': value})['value']
-  File "/home/jacek/anaconda3/envs/py36/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
-    self.error_handler.check_response(response)
-  File "/home/jacek/anaconda3/envs/py36/lib/python3.6/site-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
-    raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":".articleDetail"}
-  (Session info: headless chrome=79.0.3945.117)
-
+duda

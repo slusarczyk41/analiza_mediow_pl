@@ -9,8 +9,8 @@ from time import sleep
 
 o = Options()
 o.add_argument('--headless')
-# driver = Chrome(options = o)
-driver = Chrome()
+driver = Chrome(options = o)
+# driver = Chrome()
 
 with open('done_onet', 'r') as f:
     done_keywords = f.read().split('\n')
@@ -99,7 +99,13 @@ for keyword in keywords:
     with open('data/onet/urls/'+keyword, 'r') as f:
         urls = f.read().split('\n')
     print(len(urls))
-    
+    if len(urls) < 25:
+        keywords.append(keyword)
+        driver.close()
+        driver = Chrome(options = o)
+        continue
+
+    error_count = 0
     error_urls = []
     onet_content = []
     for url in urls:
@@ -122,6 +128,10 @@ for keyword in keywords:
                 url, title, short, long, img, com
             ])
         except:
+            error_count = error_count + 1
+            if error_count > 10:
+                error_count = 0
+                driver = Chrome(options = o)
             error_urls.append(driver.current_url)
     print(len(onet_content))
     with open('data/onet/articles/'+keyword, 'w') as f:
