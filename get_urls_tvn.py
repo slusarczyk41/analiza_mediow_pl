@@ -45,6 +45,8 @@ tvn_keywords = {
 
 o = Options()
 o.add_argument('--headless')
+o.add_argument('--no-sandbox')
+o.add_argument('--disable-dev-shm-usage')
 driver = Chrome(options = o)
 # driver = Chrome()
 
