@@ -78,7 +78,7 @@ for keyword in keywords:
     driver.get('https://wiadomosci.onet.pl/'+onet_keyword)
     
     last_url = ''
-    for i in range(110):
+    for i in range(3):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         for more_button in driver\
                             .find_element_by_class_name('pageContent')\
@@ -133,8 +133,11 @@ for keyword in keywords:
             error_count = error_count + 1
             if error_count > 10:
                 error_count = 0
+                driver.close()
+                sleep(3)
                 driver = Chrome(options = o)
-            error_urls.append(driver.current_url)
+                sleep(3)
+            error_urls.append(url)
     print(len(onet_content))
     with open('data/onet/articles/'+keyword, 'w') as f:
         writer =  csv.writer(f)
