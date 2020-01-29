@@ -72,13 +72,15 @@ except:
 #             .get_attribute('href')
 
 
-for keyword in keywords:
+for keyword in keywords[::-1]:
     print(keyword)
     onet_keyword = onet_keywords[keyword]
     driver.get('https://wiadomosci.onet.pl/'+onet_keyword)
+    sleep(1)
+    driver.get('https://wiadomosci.onet.pl/'+onet_keyword)
+    sleep(2)
     
-    last_url = ''
-    for i in range(3):
+    for i in range(100):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         for more_button in driver\
                             .find_element_by_class_name('pageContent')\
@@ -89,11 +91,13 @@ for keyword in keywords:
                 pass
         sleep(1)
 
-    urls = [
-        x.find_elements_by_tag_name('a')[-1].get_attribute('href')
-        for x in 
+    urls = list(set([
+        x.get_attribute('href')
+        for y in 
         driver.find_elements_by_class_name('listItem')
-    ]
+        for x in
+        y.find_elements_by_tag_name('a')
+    ]))
     
     with open('data/onet/urls/'+keyword, 'w') as f:
         f.write("\n".join(urls))
@@ -103,8 +107,6 @@ for keyword in keywords:
     print(len(urls))
     if len(urls) < 25:
         keywords.append(keyword)
-        driver.close()
-        driver = Chrome(options = o)
         continue
 
     error_count = 0
