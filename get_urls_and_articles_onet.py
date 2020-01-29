@@ -72,7 +72,7 @@ except:
 #             .get_attribute('href')
 
 
-for keyword in keywords[::-1]:
+for keyword in keywords:
     print(keyword)
     onet_keyword = onet_keywords[keyword]
     driver.get('https://wiadomosci.onet.pl/'+onet_keyword)
