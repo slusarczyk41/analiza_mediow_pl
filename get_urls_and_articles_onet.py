@@ -70,9 +70,9 @@ except:
 #     return driver.find_elements_by_class_name('listItem')[-1]\
 #             .find_elements_by_tag_name('a')[-1]\
 #             .get_attribute('href')
+print(len(keywords))
 
-
-for keyword in keywords:
+for keyword in keywords[::-1]:
     print(keyword)
     onet_keyword = onet_keywords[keyword]
     driver.get('https://wiadomosci.onet.pl/'+onet_keyword)
@@ -105,8 +105,7 @@ for keyword in keywords:
     with open('data/onet/urls/'+keyword, 'r') as f:
         urls = f.read().split('\n')
     print(len(urls))
-    if len(urls) < 25:
-        keywords.append(keyword)
+    if len(urls) < 45:
         continue
 
     error_count = 0
