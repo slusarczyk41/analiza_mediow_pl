@@ -1,15 +1,8 @@
-prezydent
-694
-Traceback (most recent call last):
-  File "get_urls_and_articles_onet.py", line 116, in <module>
-    driver.get(url)
-  File "/root/anaconda3/lib/python3.7/site-packages/selenium/webdriver/remote/webdriver.py", line 333, in get
-    self.execute(Command.GET, {'url': url})
-  File "/root/anaconda3/lib/python3.7/site-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
-    self.error_handler.check_response(response)
-  File "/root/anaconda3/lib/python3.7/site-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
-    raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.WebDriverException: Message: chrome not reachable
-  (Session info: headless chrome=73.0.3683.75)
-  (Driver info: chromedriver=73.0.3683.68 (47787ec04b6e38e22703e856e101e840b65afe72),platform=Linux 4.9.0-11-amd64 x86_64)
-
+3
+rząd
+1028
+998
+trump
+18
+korwin
+29

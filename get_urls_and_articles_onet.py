@@ -72,7 +72,7 @@ except:
 #             .get_attribute('href')
 print(len(keywords))
 
-for keyword in keywords[::-1]:
+for keyword in ['trump', 'korwin']:
     print(keyword)
     onet_keyword = onet_keywords[keyword]
     driver.get('https://wiadomosci.onet.pl/'+onet_keyword)
@@ -84,7 +84,7 @@ for keyword in keywords[::-1]:
     except:
         pass
     
-    for i in range(100):
+    for i in range(10):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         for more_button in driver\
                             .find_element_by_class_name('pageContent')\
@@ -109,7 +109,7 @@ for keyword in keywords[::-1]:
     with open('data/onet/urls/'+keyword, 'r') as f:
         urls = f.read().split('\n')
     print(len(urls))
-    if len(urls) < 45:
+    if len(urls) < 5:
         continue
 
     error_count = 0
