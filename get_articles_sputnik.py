@@ -1,6 +1,6 @@
 import requests
 import csv
-
+from bs4 import BeautifulSoup, element
 
 
 
@@ -21,11 +21,11 @@ for keyword in keywords:
             sputnik_content.append([
                 soup.find('h1').text.strip(),
                 soup.find('div', 'b-article__lead').text.strip(),
-                " ".join([
-                    x.text.strip()
-                    for x in
-                    soup.find('div', 'b-article__text').find_all('p')
-                ]),
+                " ".join(" ".join([
+                x.text.strip() if type(x) != element.NavigableString else x.strip()
+                for x in
+                soup.find('div', 'b-article__text')
+            ]).replace('Sputnik', '').replace('©', '').replace('AFP', '').replace('2019', '').replace('Alexey Vitvitsky', '').replace('Wojtek Radwanski', '').split()),
                 None,
                 None,
             ])

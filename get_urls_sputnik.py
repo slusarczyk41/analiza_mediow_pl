@@ -29,12 +29,12 @@ for keyword in keywords:
 
     for i in range(100):
         try:
-            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            driver.execute_script("window.scrollTo(-100, document.body.scrollHeight);")
             driver\
                 .find_element_by_class_name('search')\
                 .find_element_by_class_name('m-more')\
                 .click()
-            sleep(1)
+            sleep(1.5)
         except NoSuchElementException:
             break
         else:
