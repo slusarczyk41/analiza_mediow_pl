@@ -76,9 +76,13 @@ for keyword in keywords[::-1]:
     print(keyword)
     onet_keyword = onet_keywords[keyword]
     driver.get('https://wiadomosci.onet.pl/'+onet_keyword)
-    sleep(1)
-    driver.get('https://wiadomosci.onet.pl/'+onet_keyword)
-    sleep(2)
+    sleep(3)
+    try:
+        driver\
+            .find_element_by_class_name('cmp-intro_options')\
+            .find_elements_by_tag_name('button')[1].click()
+    except:
+        pass
     
     for i in range(100):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
