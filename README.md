@@ -28,11 +28,10 @@ porównanie ma w ogóle sens (nie ma go jeżeli dla neutralnych słów te wektor
 
 Do dodania: Na temat, Wprost, Do rzeczy, Krytyka Polityczna, Radio maryja
 
-### Klasteryzacja poglądów:
+### Walidacja podejścia:
 
-- Lewica/Prawica
-- UE/Rosja/US
-- PO/PIS
+1. 
+
 
 ### Słowa klucze:
 
