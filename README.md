@@ -1,13 +1,12 @@
 ## Analiza stronniczości mediów internetowych w Polsce
 
 Wykorzystując prosty mechanizm tworzenia wektorów znaczeniowych (word2bec) ze słów w tekście, popularnej
-oraz dosyć prostej techniki NLP, porównać kontekst oraz sentyment wybranych słów kluczy, odnoszących się do polityki, w różnych domach mediowych.
+oraz dosyć prostej techniki NLP, porównać kontekst a zarazem sentyment wybranych słów kluczy odnoszących się do polityki w różnych domach mediowych.
 
-Założenie jest takie, że **część z nich jest w jakiś sposób stronnicza (czy to pod względem lewicy, prawicy,  
-lub unia/rosja)**, będę się więc starać udowodnić że tak nie jest, jak na statystyka przystało.
+Założenie jest takie, że **część z nich jest w jakiś sposób stronnicza (czy to pod względem poglądów, czyli lewica, prawica,  
+lub preferencji terytorialnej, czyli unia/rosja)**.
 Wynik powinien być taki, że wektory wytrenowane na różnych zestawach danych (pochodzących z różnych gazet
-internetowych) powinny wyjść dosyć podobne (przynajmniej pod względem tego, czy nacechowany jest
-on pozytywnie czy negatywnie).
+internetowych) powinny wyjść pod pewnymi względami różne, w zależności od tego czy dana gazeta wypowiada się na dany temat w pozytywnym lub negatywnem kontekście.
 
 Porównam również słowa niezwiązane z polityką aby sprawdzić, czy to
 porównanie ma w ogóle sens (nie ma go jeżeli dla neutralnych słów te wektory bardzo często się różnią).
@@ -30,7 +29,18 @@ Do dodania: Na temat, Wprost, Do rzeczy, Krytyka Polityczna, Radio maryja
 
 ### Walidacja podejścia:
 
-1. 
+1. Putin, Unia w oczach Sputnika a Onet/Fakt
+2. Porównanie wektorów słów nienacechowanych emocjonalnie pochodzących z różnych gazet
+3. Sprawdzenie każdego modelu pod względem podobnych wyrazów dla kilku przykładów
+
+### Główne pytania:
+
+1. Rosja / Europa / USA : domy mediowe
+2. PO / PIS : gazety, domy mediowe
+3. Imigranci : regiony, domy mediowe
+4. Lewica / Prawica : gazety
+5. Rząd / Opozycja : gazety
+6. Tolerancja LGBT : gazety, domy mediowe
 
 
 ### Słowa klucze:
