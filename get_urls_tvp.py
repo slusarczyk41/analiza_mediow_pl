@@ -14,7 +14,7 @@ for keyword in keywords:
     keyword_urls = []
     for i in range(1, 151):
         if i % 20 == 0: print(i)
-        r = requests.get('https://www.tvp.info/szukaj?query=s%C4%85d+naj&page='+str(i))
+        r = requests.get('https://www.tvp.info/szukaj?query='+keyword+'&page='+str(i))
         soup = BeautifulSoup(r.text, features = 'html.parser')
         
         js = [
